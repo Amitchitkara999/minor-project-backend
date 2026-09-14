@@ -23,7 +23,7 @@ steps{
   sh 'npm install'
 }
 }
-steps('Run')
+stage('Run')
 {
 steps{
 echo 'Running'
