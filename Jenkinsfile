@@ -4,7 +4,7 @@ pipeline{
     NODE_ENV ='development'
   }
   tools{
-    nodejs 'nodeJS'
+    nodejs 'node'
   }
   triggers{
     pollSCM('H/5 * * * * *')
