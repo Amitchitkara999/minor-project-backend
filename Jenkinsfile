@@ -1,43 +1,50 @@
-pipeline{
-  agent any
-  environment{
-    NODE_ENV ='development'
-  }
-  tools{
-    nodejs 'node'
-  }
-  triggers{
-    pollSCM('H/5 * * * * *')
-  }
-  stages{
-stage('Repository checking'){
-  steps{
-    echo 'Cloning the git_repo'
-    git branch:'main' , url:'https://github.com/KaranManhas22/backend.git'
-  }
+pipeline {
+    agent any
 
-}
-stage('Install Node-js'){
-steps{
-  echo 'inStalling node-js'
-  sh 'npm install'
-}
-}
-stage('Run')
-{
-steps{
-echo 'Running'
-sh 'npm start'
-}
-}
-  }
-  post{
-    success{
-      echo 'Compiled successfull'
+    environment {
+        NODE_ENV = 'development'
     }
-    failure{
-      echo 'Not compiled'
-    }
-  }
 
+    tools {
+        nodejs 'node'
+    }
+
+    triggers {
+        pollSCM('H/5 * * * *')
+    }
+
+    stages {
+
+        stage('Repository Checking') {
+            steps {
+                echo 'Cloning the Git repository'
+                git branch: 'main',
+                    url: 'https://github.com/KaranManhas22/backend.git'
+            }
+        }
+
+        stage('Install Node.js Dependencies') {
+            steps {
+                echo 'Installing Node.js dependencies'
+                sh 'npm install'
+            }
+        }
+
+        stage('Run') {
+            steps {
+                echo 'Running application'
+                sh 'npm start'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Compiled successfully'
+        }
+
+        failure {
+            echo 'Not compiled'
+        }
+    }
 }
